@@ -10,6 +10,7 @@ namespace AdventOfCode09
         private List<GuardRecord> GuardRecordList;
         private List<Guard> GuardList;
         private Guard MostSleepyGuard;
+        private Guard MostFreqSleepGuard;
 
         public GuardRecordProcessor()
         {
@@ -81,6 +82,20 @@ namespace AdventOfCode09
                     MostSleepyGuard = guard;
                 }
             }
+
+            MostFreqSleepGuard = null;
+            int maxFreqSleepCount = -1;
+
+            foreach(Guard guard in GuardList)
+            {
+                int mostFreqSleepCount;
+                int mostFreqSleepMinute = guard.FindMostFrequentSleepMinute(out mostFreqSleepCount);
+                if (mostFreqSleepCount > maxFreqSleepCount) 
+                {
+                    maxFreqSleepCount = mostFreqSleepCount;
+                    MostFreqSleepGuard = guard;
+                }
+            }
         }
 
         public void Output()
@@ -114,15 +129,29 @@ namespace AdventOfCode09
 
             if (MostSleepyGuard != null)
             {
-                int mostFreqSleepMinute = MostSleepyGuard.FindMostFrequentSleepMinute();
+                int mostFreqSleepCount;
+                int mostFreqSleepMinute = MostSleepyGuard.FindMostFrequentSleepMinute(out mostFreqSleepCount);
 
                 Console.WriteLine();
                 Console.WriteLine("Most sleepy guard: {0} (ID={1})", MostSleepyGuard.Name, MostSleepyGuard.Id);
                 Console.WriteLine("  Number of shifts: {0}", MostSleepyGuard.CountShifts());
                 Console.WriteLine("  Total time on shift (minutes): {0}", MostSleepyGuard.CountTotalMinutes());
                 Console.WriteLine("  Time on shift sleeping (minutes): {0}", MostSleepyGuard.CountSleepMinutes());
-                Console.WriteLine("  Minute most likely sleeping: {0}", mostFreqSleepMinute);
+                Console.WriteLine("  Minute with most sleeping: {0} ({1} times)", mostFreqSleepMinute, mostFreqSleepCount);
                 Console.WriteLine("  Guard ID multiplied by minute: {0}", MostSleepyGuard.Id * mostFreqSleepMinute);
+            }
+
+            if (MostFreqSleepGuard != null)
+            {
+                int mostFreqSleepCount;
+                int mostFreqSleepMinute = MostFreqSleepGuard.FindMostFrequentSleepMinute(out mostFreqSleepCount);
+
+                Console.WriteLine();
+                Console.WriteLine("Minute with most sleeping amongst all guards: {0} ({1} times)", mostFreqSleepMinute, mostFreqSleepCount);
+                Console.WriteLine("  Guard: {0} (ID={1})", MostFreqSleepGuard.Name, MostFreqSleepGuard.Id);
+                Console.WriteLine("  Number of shifts: {0}", MostFreqSleepGuard.CountShifts());
+                Console.WriteLine("  Total time on shift (minutes): {0}", MostFreqSleepGuard.CountTotalMinutes());
+                Console.WriteLine("  Time on shift sleeping (minutes): {0}", MostFreqSleepGuard.CountSleepMinutes());
             }
 
         }

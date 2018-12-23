@@ -48,7 +48,7 @@ namespace AdventOfCode09
             return count;
         }
 
-        public int FindMostFrequentSleepMinute()
+        public int FindMostFrequentSleepMinute(out int count)
         {
             int maxIndex = GuardShift.GetMaxIndex();
 
@@ -75,6 +75,8 @@ namespace AdventOfCode09
                     index = i;
                 }
             }
+            
+            count = maxSleepCount;
             
             return index;
         }
