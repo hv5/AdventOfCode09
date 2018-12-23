@@ -118,6 +118,7 @@ namespace AdventOfCode09
 
                 Console.WriteLine();
                 Console.WriteLine("Most sleepy guard: {0} (ID={1})", MostSleepyGuard.Name, MostSleepyGuard.Id);
+                Console.WriteLine("  Number of shifts: {0}", MostSleepyGuard.CountShifts());
                 Console.WriteLine("  Total time on shift (minutes): {0}", MostSleepyGuard.CountTotalMinutes());
                 Console.WriteLine("  Time on shift sleeping (minutes): {0}", MostSleepyGuard.CountSleepMinutes());
                 Console.WriteLine("  Minute most likely sleeping: {0}", mostFreqSleepMinute);
